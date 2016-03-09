@@ -110,3 +110,5 @@
     state: started
   tags:
     - collectd
+
+- include: marathon.yml
