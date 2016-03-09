@@ -112,3 +112,5 @@
     - collectd
 
 - include: marathon.yml
+- include: mesos-master.yml
+- include: mesos-agent.yml
