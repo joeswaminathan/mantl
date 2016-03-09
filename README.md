@@ -48,7 +48,6 @@ Mantl is a modern, batteries included platform for rapidly deploying globally di
 * [Consul](http://consul.io) for service discovery
 * [Vault](http://vaultproject.io) for managing secrets
 * [Docker](http://docker.io) container runtime
-* [collectd](https://collectd.org/) for metrics collection
 * [Logstash](https://github.com/elastic/logstash) for log forwarding
 * [mesos-consul](https://github.com/CiscoCloud/mesos-consul) populating Consul service discovery with Mesos tasks
 * [marathon-consul](https://github.com/CiscoCloud/marathon-consul) update consul k/v with Marathon tasks
