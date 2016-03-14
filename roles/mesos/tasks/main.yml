@@ -19,6 +19,17 @@
   tags:
     - mesos
 
+- name: configure mesos-log-cleanup cron job
+  sudo: yes
+  copy:
+    src: mesos-log-cleanup
+    dest: /etc/cron.hourly/mesos-log-cleanup
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - mesos
+
 - include: leader.yml
   when: mesos_mode == "leader" or mesos_mode == "mixed"
 

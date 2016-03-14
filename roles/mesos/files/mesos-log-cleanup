@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# delete 0 byte log files older than 1 hour
+find /var/log/mesos -size 0 -mmin +60 -delete
