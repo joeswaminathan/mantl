@@ -363,6 +363,52 @@ def aws_host(resource, module_name):
     return name, attrs, groups
 
 
+@parses('icf_instance')
+@calculate_mi_vars
+def icf_host(resource, module_name):
+    name = resource['primary']['attributes']['name']
+    raw_attrs = resource['primary']['attributes']
+
+    groups = []
+
+    attrs = {
+        'catalog': raw_attrs['catalog'],
+        'id': raw_attrs['id'],
+        'private_ip': raw_attrs['private_ip'],
+        'public_ip': raw_attrs['public_ip'],
+        'enterprise_ip': raw_attrs['enterprise_ip'],
+        'network': raw_attrs['network'],
+        'vdc': raw_attrs['vdc'],
+        'tags': parse_dict(raw_attrs, 'tags'),
+
+        # ansible-specific
+        'ansible_ssh_port': 22,
+        'ansible_ssh_user': raw_attrs['tags.sshUser'],
+        'ansible_ssh_host': raw_attrs['public_ip'],
+        # generic
+        'public_ipv4': raw_attrs['public_ip'],
+        'private_ipv4': raw_attrs['private_ip'],
+        'provider': 'icf',
+    }
+
+    # attrs specific to microservices-infrastructure
+    attrs.update({
+        'consul_dc': _clean_dc(attrs['tags'].get('dc', module_name)),
+        'role': attrs['tags'].get('role', 'none')
+    })
+
+    # groups specific to microservices-infrastructure
+    groups.append('role=' + attrs['role'])
+    groups.append('dc=' + attrs['consul_dc'])
+
+#    print repr(name)
+#    print 'name =' + repr(name)
+#    print 'attrs =' + repr(atts)
+#    print 'groups =' + repr(groups)
+
+    return name, attrs, groups
+
+
 @parses('google_compute_instance')
 @calculate_mi_vars
 def gce_host(resource, module_name):
