@@ -3,9 +3,10 @@ variable "count" {}
 variable "role" {}
 variable "datacenter" {}
 variable "short_name" {default = "mantl"}
-variable "catalog" {default = "ff19e470-561a-4fbb-aec0-5ec314b01bd9"}
-variable "vdc" {default = "7b181127-3a6b-4d69-a69f-40ac0e724cb4"}
-variable "network" {default = "4b77ad16-15eb-4483-9ffe-8df9e497b3e5"}
+variable "catalog" {}
+variable "vdc" {}
+variable "network" {}
+variable "provider_access" {}
 
 resource "icf_instance" "instance" {
   count = "${var.count}"
@@ -15,6 +16,7 @@ resource "icf_instance" "instance" {
   vdc = "${var.vdc}"
   catalog = "${var.catalog}"
   network = "${var.network}"
+  provider_access = "${var.provider_access}"
 
   tags {
     Name = "${var.short_name}-${var.role}-${format("%02d", count.index+1)}"
